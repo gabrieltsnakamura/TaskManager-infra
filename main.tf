@@ -47,6 +47,7 @@ resource "aws_instance" "nginx" {
     type     = "ssh"
     user     = "ubuntu"
     password = ""
+    private_key = file("tf-taskmanager-keypair")
     host     = self.public_ip
   }
   provisioner "remote-exec" {
