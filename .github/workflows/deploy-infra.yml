@@ -18,10 +18,10 @@ jobs:
     steps:
 
     - name: Checkout Repo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4.1.0
 
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -42,20 +42,3 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
-  create_pull_request:
-    name: Create Pull Request
-    needs: [tf_fmt]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3.7.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Pull request automatizado da branch develop para main'
-          title: 'Pull Request Automatizado'
-          body: 'Pull Request criado automaticamente pelo Github Actions'
-          branch: 'develop'
-          base: 'main'
