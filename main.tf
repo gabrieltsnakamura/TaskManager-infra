@@ -2,12 +2,12 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      Version = "latest"
+      version = "latest"
     }
   }
   backend "s3" {
     bucket = "taskmanager-bucket"
-    key    = "terraform-statefiles/"
+    key    = "terraform-statefiles"
     region = "sa-east-1"
   }
 }
