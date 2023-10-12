@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   tf_fmt:
