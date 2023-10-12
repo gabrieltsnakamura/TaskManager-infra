@@ -20,7 +20,6 @@ resource "aws_instance" "nginx" {
   depends_on    = [aws_security_group.nginx-sg]
   ami           = "ami-0af6e9042ea5a4e3e"
   instance_type = "t2.micro"
-  key_name      = "task-manager-ec2-key"
   tags = {
     Name = "task-manager-nginx-server"
   }
@@ -30,10 +29,10 @@ resource "aws_instance" "nginx" {
   ]
 
   connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file("task-manager-ec2-key.pem")
-    host        = self.public_ip
+    type     = "ssh"
+    user     = "ubuntu"
+    password = ""
+    host     = self.public_ip
   }
   provisioner "remote-exec" {
     inline = [
