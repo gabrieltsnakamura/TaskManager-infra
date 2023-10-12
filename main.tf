@@ -20,7 +20,7 @@ resource "aws_instance" "nginx" {
   depends_on    = [aws_security_group.nginx-sg]
   ami           = "ami-0af6e9042ea5a4e3e"
   instance_type = "t2.micro"
-  key_name      = "task-manager--ec2-key"
+  key_name      = "task-manager-ec2-key"
   tags = {
     Name = "task-manager-nginx-server"
   }
@@ -32,7 +32,7 @@ resource "aws_instance" "nginx" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("Kube-key.pem")
+    private_key = file("task-manager-ec2-key.pem")
     host        = self.public_ip
   }
   provisioner "remote-exec" {
@@ -48,7 +48,7 @@ resource "aws_instance" "nginx" {
 resource "aws_security_group" "nginx-sg" {
   name        = "nginx-sg"
   description = "allow ssh on 22 & http on port 80"
-  vpc_id      = aws_default_vpc.default.id
+  vpc_id      = "vpc-01fc95a5350f26011"
 
   ingress {
     from_port   = 22
