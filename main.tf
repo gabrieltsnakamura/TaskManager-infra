@@ -16,10 +16,25 @@ provider "aws" {
   region = "sa-east-1"
 }
 
+resource "aws_key_pair" "tf-taskmanager-keypair" {
+  key_name   = "tf-taskmanager-keypair"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+resource "local_file" "tf-key" {
+  content  = tls_private_key.rsa.private_key_pem
+  filename = "tf-taskmanager-keypair"
+}
+
+
 resource "aws_instance" "nginx" {
-  depends_on    = [aws_security_group.nginx-sg]
+  depends_on    = [aws_security_group.nginx-sg, aws_key_pair.tf-taskmanager-keypair]
   ami           = "ami-0af6e9042ea5a4e3e"
   instance_type = "t2.micro"
+  key_name = aws_key_pair.tf-taskmanager-keypair.key_name
   tags = {
     Name = "task-manager-nginx-server"
   }
