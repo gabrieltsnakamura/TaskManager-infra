@@ -44,10 +44,11 @@ resource "aws_instance" "nginx" {
   ]
 
   connection {
-    type     = "ssh"
-    user     = "ubuntu"
-    password = ""
-    host     = self.public_ip
+    type        = "ssh"
+    user        = "ubuntu"
+    password    = ""
+    private_key = file(local_file.tf-key.filename)
+    host        = self.public_ip
   }
   provisioner "remote-exec" {
     inline = [
