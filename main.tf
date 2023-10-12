@@ -34,7 +34,7 @@ resource "aws_instance" "nginx" {
   depends_on    = [aws_security_group.nginx-sg, aws_key_pair.tf-taskmanager-keypair]
   ami           = "ami-0af6e9042ea5a4e3e"
   instance_type = "t2.micro"
-  key_name = aws_key_pair.tf-taskmanager-keypair.key_name
+  key_name      = aws_key_pair.tf-taskmanager-keypair.key_name
   tags = {
     Name = "task-manager-nginx-server"
   }
