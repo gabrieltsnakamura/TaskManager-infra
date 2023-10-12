@@ -39,11 +39,6 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false
 
-    - name: github variable check
-      run: |
-        echo ${{ github.event_name }}
-        echo "GitHub Ref: ${{ github.ref }}"
-
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'pull_request'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
