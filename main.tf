@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket = "taskmanager-bucket"
-    key    = "terraform-statefiles"
+    key    = "terraform-statefiles/taskManager-infra.tfstate"
     region = "sa-east-1"
   }
 }
