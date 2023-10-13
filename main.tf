@@ -87,3 +87,6 @@ resource "aws_security_group" "nginx-sg" {
   }
 }
 
+module "task-manager-rds" {
+  source = "rds.tf"
+}
