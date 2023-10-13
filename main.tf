@@ -40,7 +40,7 @@ resource "aws_instance" "nginx" {
   }
 
   vpc_security_group_ids = [
-    "nginx-sg"
+    aws_security_group.nginx-sg.id
   ]
 
   connection {
