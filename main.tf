@@ -86,7 +86,3 @@ resource "aws_security_group" "nginx-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-module "task-manager-rds" {
-  source = "./rds.tf"
-}
