@@ -9,7 +9,7 @@ resource "aws_db_instance" "task-manager-db" {
   password               = "admin1234"
   parameter_group_name   = "default.mysql5.7"
   skip_final_snapshot    = true
-  vpc_security_group_ids = [aws_security_group.example.id]
+  vpc_security_group_ids = [aws_security_group.task-manager-db-sg.id]
 
   tags = {
     Name = "task-manager-db"
