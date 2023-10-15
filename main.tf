@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 resource "aws_launch_template" "task_manager_lc" {
-  name                   = "task_manager_lc"
+  name_prefix            = "task_manager_lc_"
   image_id               = "ami-12345678"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.task_manager_nginx_sg.id]
