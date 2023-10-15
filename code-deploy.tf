@@ -64,7 +64,7 @@ resource "aws_codedeploy_deployment_group" "task_manager_app_deployment_group" {
 
   load_balancer_info {
     target_group_info {
-      name = aws_lb_target_group.task_manager_green.name
+      name = aws_lb_target_group.task_manager_target_group.name
     }
   }
 
