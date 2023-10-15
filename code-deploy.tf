@@ -46,7 +46,7 @@ resource "aws_codedeploy_deployment_group" "task_manager_app_deployment_group" {
   deployment_group_name  = "prod"
   service_role_arn       = aws_iam_role.codedeploy_role.arn
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
-
+  autoscaling_groups     = [aws_autoscaling_group.task_manager_asg.arn]
   blue_green_deployment_config {
     deployment_ready_option {
       action_on_timeout = "CONTINUE_DEPLOYMENT"
@@ -54,6 +54,10 @@ resource "aws_codedeploy_deployment_group" "task_manager_app_deployment_group" {
     terminate_blue_instances_on_deployment_success {
       action                           = "TERMINATE"
       termination_wait_time_in_minutes = 5
+    }
+
+    green_fleet_provisioning_option {
+      action = "COPY_AUTO_SCALING_GROUP"
     }
   }
 
