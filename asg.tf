@@ -1,6 +1,6 @@
 resource "aws_autoscaling_group" "task_manager_asg_green" {
   name                      = "task-manager-green-asg"
-  launch_configuration      = aws_launch_template.task_manager_lc.id
+  launch_configuration      = aws_launch_template.task_manager_lc.name
   min_size                  = 2
   max_size                  = 5
   desired_capacity          = 2
@@ -16,7 +16,7 @@ resource "aws_autoscaling_attachment" "task_manager_autoscaling_attachment_green
 
 resource "aws_autoscaling_group" "task_manager_asg_blue" {
   name                      = "task-manager-blue-asg"
-  launch_configuration      = aws_launch_template.task_manager_lc.id
+  launch_configuration      = aws_launch_template.task_manager_lc.name
   min_size                  = 2
   max_size                  = 5
   desired_capacity          = 2
