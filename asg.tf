@@ -1,6 +1,6 @@
 resource "aws_autoscaling_group" "task_manager_asg" {
   name                      = "task-manager-asg"
-  launch_configuration      = "${aws_launch_template.task_manager_lc.name}"
+  launch_configuration      = aws_launch_template.task_manager_lc.name
   min_size                  = 2
   max_size                  = 5
   desired_capacity          = 2
