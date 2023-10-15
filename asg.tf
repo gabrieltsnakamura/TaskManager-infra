@@ -1,4 +1,5 @@
 resource "aws_autoscaling_group" "task_manager_asg" {
+  depends_on                = [aws_launch_template.task_manager_lc]
   name                      = "task-manager-asg"
   launch_configuration      = aws_launch_template.task_manager_lc.name
   min_size                  = 2

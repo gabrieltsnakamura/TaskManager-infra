@@ -42,7 +42,7 @@ resource "aws_codedeploy_app" "task_manager_app" {
 
 # Define the CodeDeploy deployment group
 resource "aws_codedeploy_deployment_group" "task_manager_app_deployment_group" {
-  app_name               = aws_codedeploy_app.task_manager_app.name
+  app_name               = aws_codedeploy_app.task_manager_deployment_config.name
   deployment_group_name  = "prod"
   service_role_arn       = aws_iam_role.codedeploy_role.arn
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
@@ -76,7 +76,7 @@ resource "aws_codedeploy_deployment_group" "task_manager_app_deployment_group" {
 }
 
 # Define the CodeDeploy deployment configuration
-resource "aws_codedeploy_deployment_config" "app_deployment_config" {
+resource "aws_codedeploy_deployment_config" "task_manager_deployment_config" {
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
 
   minimum_healthy_hosts {
