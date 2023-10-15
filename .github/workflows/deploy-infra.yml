@@ -37,8 +37,8 @@ jobs:
       run: terraform fmt -check
 
     - name: Terraform Plan
-      run: terraform plan -input=false -var-file=variable.tfvars
+      run: terraform plan -input=false -var-file=variables.tfvars
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false -var-file=variable.tfvars
+      run: terraform apply -auto-approve -input=false -var-file=variables.tfvars
