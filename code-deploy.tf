@@ -24,7 +24,8 @@ data "aws_iam_policy_document" "codedeploy_policy" {
   statement {
     effect = "Allow"
     actions = [
-      "codedeploy:*"
+      "codedeploy:*",
+      "autoscaling:*"
     ]
     resources = [aws_codedeploy_deployment_group.task_manager_app_deployment_group.arn]
   }
