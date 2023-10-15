@@ -78,5 +78,10 @@ resource "aws_codedeploy_deployment_group" "task_manager_app_deployment_group" {
 # Define the CodeDeploy deployment configuration
 resource "aws_codedeploy_deployment_config" "app_deployment_config" {
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
+
+  minimum_healthy_hosts {
+    type  = "HOST_COUNT"
+    value = 2
+  }
 }
 

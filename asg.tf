@@ -15,6 +15,7 @@ resource "aws_autoscaling_attachment" "task_manager_autoscaling_attachment_green
 }
 
 resource "aws_autoscaling_group" "task_manager_asg_blue" {
+  depends_on                = [aws_launch_template.task_manager_lc]
   name                      = "task-manager-blue-asg"
   launch_configuration      = aws_launch_template.task_manager_lc.name
   min_size                  = 2

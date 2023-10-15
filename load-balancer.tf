@@ -23,7 +23,7 @@ resource "random_pet" "app" {
   separator = "-"
 }
 
-resource "aws_lb_target_group" "task_manager_blue" {
+resource "aws_lb_target_group" "task_manager_target_group" {
   name     = "blue-tg-${random_pet.app.id}-lb"
   port     = 80
   protocol = "HTTP"
@@ -37,38 +37,13 @@ resource "aws_lb_target_group" "task_manager_blue" {
   }
 }
 
-resource "aws_lb_listener" "task_manager_blue_listener" {
+resource "aws_lb_listener" "task_manager_listener" {
   load_balancer_arn = aws_lb.task_manager_lb.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.task_manager_blue.arn
-  }
-}
-
-resource "aws_lb_target_group" "task_manager_green" {
-  name     = "green-tg-${random_pet.app.id}-lb"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
-
-  health_check {
-    port     = 80
-    protocol = "HTTP"
-    timeout  = 5
-    interval = 10
-  }
-}
-
-resource "aws_lb_listener" "task_manager_green_listener" {
-  load_balancer_arn = aws_lb.task_manager_lb.arn
-  port              = "80"
-  protocol          = "HTTP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.task_manager_green.arn
+    target_group_arn = aws_lb_target_group.task_manager_target_group.arn
   }
 }
