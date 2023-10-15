@@ -24,7 +24,7 @@ resource "random_pet" "app" {
 }
 
 resource "aws_lb_target_group" "task_manager_target_group" {
-  name     = "blue-tg-${random_pet.app.id}-lb"
+  name     = "tg-${random_pet.app.id}-lb"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
