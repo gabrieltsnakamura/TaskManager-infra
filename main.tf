@@ -16,14 +16,6 @@ provider "aws" {
   region = "sa-east-1"
 }
 
-resource "aws_launch_template" "task_manager_lc" {
-  name            = "task_manager_lc"
-  image_id               = "ami-0af6e9042ea5a4e3e"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.task_manager_nginx_sg.id]
-  user_data              = filebase64("nginx-install.sh")
-}
-
 resource "aws_security_group" "task_manager_nginx_sg" {
   name        = "nginx-sg"
   description = "allow ssh on 22 & http on port 443"
