@@ -9,7 +9,7 @@ resource "aws_autoscaling_group" "task_manager_asg" {
 
   launch_template {
     id      = aws_launch_template.task_manager_lc.id
-    version = "$Latest"
+    version = aws_launch_template.task_manager_lc.latest_version
   }
 
 }

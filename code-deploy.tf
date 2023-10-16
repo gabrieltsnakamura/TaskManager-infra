@@ -24,10 +24,14 @@ data "aws_iam_policy_document" "codedeploy_policy" {
   statement {
     effect = "Allow"
     actions = [
-      "codedeploy:*",
-      "autoscaling:*"
+      "autoscaling:*",
+      "ec2:RunInstances",
+      "ec2:CreateTags",
+      "ec2:*",
+      "iam:PassRole",
+      "codedeploy:*"
     ]
-    resources = [aws_codedeploy_deployment_group.task_manager_app_deployment_group.arn]
+    resources = ["*"]
   }
 }
 
@@ -47,7 +51,7 @@ resource "aws_codedeploy_deployment_group" "task_manager_app_deployment_group" {
   deployment_group_name  = "prod"
   service_role_arn       = aws_iam_role.codedeploy_role.arn
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
-  autoscaling_groups     = [aws_autoscaling_group.task_manager_asg.arn]
+  autoscaling_groups     = [aws_autoscaling_group.task_manager_asg.name]
   blue_green_deployment_config {
     deployment_ready_option {
       action_on_timeout = "CONTINUE_DEPLOYMENT"

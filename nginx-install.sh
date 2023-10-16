@@ -1,9 +1,38 @@
-sudo apt-get update
-sudo apt-get install nginx -y
-sudo systemctl enable nginx
-sudo systemctl start nginx
+#!/bin/bash
 
-aws s3 cp s3://taskmanager-bucket/bin/taskmanager_app.zip /var/www/html/taskManager/
+sudo su
 
-unzip /var/www/html/taskManager/taskmanager_app.zip -d /var/www/html/taskManager/
-mv /var/www/html/taskManager/dist/taskmanager/* /var/www/html/taskManager/
+apt-get update
+apt-get install nginx -y
+systemctl enable nginx
+systemctl start nginx
+
+cat <<EOF > index.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>200 OK</title>
+  </head>
+  <body>
+    <h1>200 OK</h1>
+    <p>This page returns a 200 status code.</p>
+  </body>
+</html>
+EOF
+
+cp index.html /var/www/html/
+chown www-data:www-data /var/www/html/index.html
+chmod 644 /var/www/html/index.html
+
+apt-get update
+apt install ruby-full -y
+apt install wget -y
+cd /home/ubuntu
+wget https://aws-codedeploy-sa-east-1.s3.sa-east-1.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+
+
+systemctl start codedeploy-agent
+systemctl enable codedeploy-agent
+

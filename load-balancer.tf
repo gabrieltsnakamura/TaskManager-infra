@@ -8,6 +8,13 @@ resource "aws_security_group" "task_manager_lb_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  egress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["172.31.32.0/20", "172.31.0.0/20"]
+  }
 }
 
 resource "aws_lb" "task_manager_lb" {
