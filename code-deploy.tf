@@ -29,7 +29,8 @@ data "aws_iam_policy_document" "codedeploy_policy" {
       "ec2:CreateTags",
       "ec2:*",
       "iam:PassRole",
-      "codedeploy:*"
+      "codedeploy:*",
+      "elasticloadbalancing:*"
     ]
     resources = ["*"]
   }
